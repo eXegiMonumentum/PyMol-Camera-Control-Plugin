@@ -1,68 +1,102 @@
 
-# OakGesturePlugin for PyMOL## 📦 Szybka instalacja
+# OakGesturePlugin for PyMOL
 
-## 📦 Szybka instalacja
+Plugin do PyMOLa umożliwiający sterowanie molekułami za pomocą gestów dłoni z użyciem kamery OAK-D i technologii MediaPipe.  
 
-[Kliknij tutaj, aby pobrać plugin ZIP do PyMOL](https://github.com/eXegiMonumentum/pymol-gesture-plugin/raw/main/Plugin/OakGesturePlugin.zip)
+---
 
-
-A PyMOL plugin that enables 3D molecular interaction using hand gestures captured by an OAK-D camera. This plugin provides a GUI interface and communicates with an external gesture recognition system based on Python, MediaPipe, and DepthAI.
-
-## 🔧 Features
-
-- Control PyMOL with gestures:
-  - 🖱 Rotate (left click)
-  - 🎯 Move (middle click)
-  - 🔍 Zoom (right click)
-  - 🔃 Scroll (clipping/slabbing)
-- Real-time hand tracking via OAK-D camera
-- Toggleable gesture tracking and camera preview
-- Simple GUI launcher within PyMOL
-
-## 🖐️ Gesture Mapping (for 3-Button Viewing Mode in PyMOL)
-
-| Action       | Mouse Button | Gesture Description                                                  | Effect                              |
-|--------------|--------------|-----------------------------------------------------------------------|-------------------------------------|
-| **ROTA**     | Left Click   | 👌 “OK” gesture (thumb + index finger touching)                      | Rotate 3D model                     |
-| **MOVE**     | Middle Click | ✌️ “V” gesture (index + middle finger extended)                     | Pan the model                      |
-| **MOV-Z**    | Right Click  | 🖐 4 fingers extended, thumb folded                                  | Zoom in/out (move along Z axis)    |
-| **SLAB UP**  | Scroll Up    |  Index finger up, thumb 90° to the side, others folded (L-shape) | Raise clipping front plane         |
-| **SLAB DOWN**| Scroll Down  | ✊ Fist with thumb extended horizontally (180° from palm)            | Lower clipping back plane          |
-
-## 🧰 Requirements
-
-- PyMOL (with plugin support)
-- Python 3.9+
-- Anaconda or virtual environment
-- [MediaPipe](https://google.github.io/mediapipe/)
-- [depthai](https://docs.luxonis.com/)
-
-## 🚀 Usage
-
-1. Clone or download this repository.
-2. Set up the Python environment in `OAK_plugin_pyqt/env/` with required packages.
-3. Open PyMOL and install the plugin ZIP via:
-   ```
-   Plugin > Plugin Manager > Install > From File...
-   ```
-4. Click on the plugin in the PyMOL menu.
-5. Press **Start** to launch gesture control.
-
-## 📁 Repository Structure
+## 📁 Struktura repozytorium
 
 ```
-OakGesturePlugin/         <- PyMOL plugin with GUI
-  ├── __init__.py
-  └── demowidget.ui
-
-OAK_plugin_pyqt/          <- Gesture recognition system
-  ├── oak_plugin.py
-  ├── gesture_utils.py
-  └── env/                <- Virtual environment (optional, not included)
+pymol-gesture-plugin/
+└── Plugin/
+    ├── OakGesturePlugin.zip            ← ZIP pluginu do załadowania w PyMOL
+    ├── OakGesturePlugin/              ← Rozpakowana zawartość ZIP-a (GUI pluginu)
+    │   ├── __init__.py                ← Kluczowy plik: zmieniasz tu ścieżki!
+    │   └── demowidget.ui              ← Interfejs graficzny (PyQt)
+    │
+    └── OAK_plugin_pyqt/               ← Silnik rozpoznawania gestów
+        ├── gesture_utils.py           ← Funkcje rozpoznające gesty
+        ├── oak_plugin.py              ← Główny skrypt rozpoznający gesty
+        ├── requirements.txt           ← Lista paczek   
+   
 ```
 
-## 📦 Dependencies (install in virtual env)
+---
 
+## 🛠 Co pobrać?
+
+Z repozytorium **pobierasz tylko**:
+
+✅ `gesture_utils.py`  
+✅ `oak_plugin.py`
+
+👉 **Umieść je razem w nowym folderze**, np. `OAK_plugin_pyqt_user/`
+
+---
+
+## 🧪 Utwórz środowisko (env)
+
+Najlepiej otwórz ten folder w **PyCharm** — automatycznie zaproponuje stworzenie środowiska wirtualnego (venv).  
+Jeśli nie, możesz to zrobić ręcznie w terminalu:
+
+```bash
+python -m venv env
+env\Scripts\activate     # Windows
+source env/bin/activate    # Linux/Mac
+pip install -r requirements.txt
 ```
-pip install opencv-python mediapipe depthai pyautogui
+
+> 📌 Upewnij się, że masz zainstalowane:
+> `opencv-python`, `pyautogui`, `mediapipe`, `depthai`
+
+---
+
+## ⚠️ Zmień ścieżki w `__init__.py` (ZIP pluginu)
+
+W środku `OakGesturePlugin/__init__.py` znajdują się dwie ścieżki:
+
+```python
+python_path = os.path.abspath("C:/SCIEZKA_DO/env/Scripts/python.exe")
+script_path = os.path.abspath("C:/SCIEZKA_DO/oak_plugin.py")
 ```
+
+🔁 Zamień je na **lokalne ścieżki** do:
+
+- Twojego `env`
+- Twojego `oak_plugin.py`
+
+---
+
+## ✅ Instalacja w PyMOL
+
+1. Pobierz ZIP -- > To w nimy zmienić ścieżki w __init__:  
+   [OakGesturePlugin.zip](https://github.com/eXegiMonumentum/pymol-gesture-plugin/raw/main/Plugin/OakGesturePlugin.zip)
+
+2. W PyMOLu:
+   - `Plugin > Plugin Manager > Install`
+   - Wybierz ZIP, w którym zmieniłeś ścieżki na poprawne (ścieżki do swojego venv gdzie ma odpalić się skrypt oraz ścieżka do skryptu oak_plugin.py) 
+   - Kliknij **Install**
+
+3. Uruchom:
+   - `Plugin > Installed Plugins > OAK Plugin (PyQt)`
+   - Kliknij **Start**
+
+---
+
+## ✋ Gesty
+
+| Akcja       | Mysza        | Gest                                                     |
+|-------------|--------------|-----------------------------------------------------------|
+| ROTA        | Lewy przycisk| 👌 OK – kciuk + wskazujący                               |
+| MOVE        | Środkowy     | ✌️ V – wskazujący + środkowy                            |
+| MOV-Z       | Prawy        | 🖐 4 palce wyprostowane, kciuk schowany                 |
+| SLAB UP     | Scroll ↑     |  L-kształtny (wskazujący w górę, kciuk w bok)         |
+| SLAB DOWN   | Scroll ↓     | ✊ Pięść z kciukiem poziomo (180°)                      |
+
+---
+
+## 👨‍💻 Autor: eXegiMonumentum
+    PRz.index 167128
+
+Eksperymentalne sterowanie molekułami w PyMOLu przy pomocy AI i gestów dłoni ✨
