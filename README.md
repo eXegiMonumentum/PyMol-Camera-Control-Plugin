@@ -1,25 +1,6 @@
+# 🧬 OAK Gesture Plugin for PyMOL
 
-# OakGesturePlugin for PyMOL
-
-Plugin do PyMOLa umożliwiający sterowanie molekułami za pomocą gestów dłoni z użyciem kamery OAK-D i technologii MediaPipe.  
-
----
-
-## 📁 Struktura repozytorium
-
-```
-pymol-gesture-plugin/
-└── Plugin/
-    ├── OakGesturePlugin.zip            ← ZIP pluginu do załadowania w PyMOL
-    ├── OakGesturePlugin/              ← Rozpakowana zawartość ZIP-a (GUI pluginu)
-    │   ├── __init__.py                ← Kluczowy plik: zmieniasz tu ścieżki!
-    │   └── demowidget.ui              ← Interfejs graficzny (PyQt)
-    │
-    └── OAK_plugin_pyqt/               ← Silnik rozpoznawania gestów
-        ├── gesture_utils.py           ← Funkcje rozpoznające gesty
-        ├── oak_plugin.py              ← Główny skrypt rozpoznający gesty
-        ├── requirements.txt           ← Lista paczek   
-```
+System pozwala na sterowanie molekułami w **PyMOL** przy użyciu gestów dłoni rozpoznawanych przez kamerę **OAK-D**.
 
 ---
 
@@ -28,7 +9,8 @@ pymol-gesture-plugin/
 Z repozytorium **pobierasz tylko**:
 
 ✅ `gesture_utils.py`  
-✅ `oak_plugin.py`
+✅ `oak_plugin.py`  
+✅ `requirements.txt`
 
 👉 **Umieść je razem w nowym folderze**, np. `OAK_plugin_pyqt_user/`
 
@@ -41,8 +23,8 @@ Jeśli nie, możesz to zrobić ręcznie w terminalu:
 
 ```bash
 python -m venv env
-env\Scripts\activate     # Windows
-source env/bin/activate    # Linux/Mac
+env\Scripts\activate       # Windows
+source env/bin/activate      # Linux/Mac
 pip install -r requirements.txt
 ```
 
@@ -53,74 +35,77 @@ pip install -r requirements.txt
 
 ## ⚠️ Zmień ścieżki w `__init__.py` (ZIP pluginu)
 
-W środku `OakGesturePlugin/__init__.py` znajdują się dwie ścieżki:
+W folderze `OAKGesturePlugin/OAKGesturePlugin/__init__.py` znajdują się trzy ważne ścieżki:
 
 ```python
 python_path = os.path.abspath("C:/SCIEZKA_DO/env/Scripts/python.exe")
 script_path = os.path.abspath("C:/SCIEZKA_DO/oak_plugin.py")
+ui_file = os.path.abspath("C:/SCIEZKA_DO/OAKGesturePlugin/demowidget.ui")
 ```
 
-### 🔍 Dlaczego tak?
+🔴 **Musisz je zmienić ręcznie na swoje lokalne ścieżki**, ponieważ PyMOL oczekuje tych danych do uruchomienia pluginu.
 
-Ten plugin **uruchamia skrypt zewnętrznie** przez `subprocess`, a nie z poziomu PyMOLa czy Anacondy – ponieważ Anaconda może nie obsługiwać `mediapipe`.  
-Dlatego musisz podać ręcznie:
+- `python_path` – do pliku `python.exe` z utworzonego środowiska `env`
+- `script_path` – do skryptu `oak_plugin.py`
+- `ui_file` – do pliku `demowidget.ui`, który znajduje się wewnątrz folderu ZIP
 
-- Ścieżkę do środowiska `venv`
-- Ścieżkę do `oak_plugin.py`
+---
+
+## 🗜 Przygotowanie ZIP dla PyMOL
+
+📦 PyMOL oczekuje pliku `.zip` w strukturze pluginu. W tym celu:
+
+1. Upewnij się, że struktura wygląda tak:
+
+```
+OAKGesturePlugin/
+└── OAKGesturePlugin/
+    ├── __init__.py
+    └── demowidget.ui
+```
+
+2. Spakuj cały folder `OAKGesturePlugin` (ten zawierający podfolder z tym samym prefiksem) jako:  
+   **`OAKGesturePlugin.zip`**
+
+> ⚠️ Nie spakuj tylko plików – spakuj **cały folder `OAKGesturePlugin/`**, aby PyMOL mógł go prawidłowo zainstalować.
+    
 
 ---
 
 ## ✅ Instalacja w PyMOL
 
-1. Pobierz ZIP, w którym zmienisz ścieżki:
-   [OakGesturePlugin.zip](https://github.com/eXegiMonumentum/pymol-gesture-plugin/raw/main/Plugin/OakGesturePlugin.zip)
-
-2. W PyMOLu:
-   - Otwórz `Plugin > Plugin Manager > Install`
-   - Wybierz ZIP, **w którym wcześniej zmieniłeś ścieżki**:
-     - do `python.exe` wewnątrz środowiska
-     - do `oak_plugin.py`
-   - Kliknij **Install**
-
-3. Uruchom:
-   - `Plugin > Installed Plugins > OAK Plugin (PyQt)`
-   - Kliknij **Start**
+1. Uruchom PyMOL  
+2. Przejdź do: `Plugin > Plugin Manager > Install`  
+3. Wskaż utworzony plik `OAKGesturePlugin.zip`  
+4. Kliknij **Install**  
+5. Uruchom plugin z: `Plugin > Installed Plugins > OAK Plugin (PyQt)`  
+6. Jeśli kamera OAK-D nie jest podłączona, w konsoli pojawi się odpowiedni komunikat – oznacza to, że plugin został uruchomiony poprawnie.Jeśli zamiast tego pojawi się inny błąd, najprawdopodobniej PyMOL nie rozpoznał struktury pluginu  w archiwum .zip. W takim przypadku upewnij się, że plik .zip został spakowany w poprawnej strukturze.
 
 ---
 
-** W skrócie: ** 
-1. **Pobierz wymagane pliki:**
-   - `plugin.py` – główny skrypt pluginu,
-   - `utils.py` – plik z funkcjami pomocniczymi,
-   - `plugin.zip` – archiwum zawierające plugin.
+## ✋ Gesty – mapa akcji
 
-2. **Edytuj plik `.zip`:**
-   - Otwórz plik `plugin.zip`,
-   - Zmień **dwie ścieżki** na własne lokalne ścieżki (np. do folderu z danymi lub bibliotekami),
-   - Można to zrobić, wypakowując archiwum, edytując pliki, a następnie ponownie pakując całość do `.zip`.
-
-3. **Załaduj plugin w PyMOL-u:**
-   - Otwórz **Plugin Manager GUI** w PyMOL-u,
-   - Kliknij **Install** i wskaż zmodyfikowany plik `plugin.zip`,
-   - Po zainstalowaniu, plugin będzie dostępny z poziomu menu w PyMOL-u.
-
-## ✋ Gesty
-
-| Akcja       | Mysza        | Gest                                                     |
-|-------------|--------------|-----------------------------------------------------------|
-| ROTA        | Lewy przycisk| 👌 OK – kciuk + wskazujący                               |
-| MOVE        | Środkowy     | ✌️ V – wskazujący + środkowy                            |
-| MOV-Z       | Prawy        | 🖐 4 palce wyprostowane, kciuk schowany                 |
-| SLAB UP     | Scroll ↑     | L-kształtny (wskazujący w górę, kciuk w bok)            |
-| SLAB DOWN   | Scroll ↓     | ✊ Pięść z kciukiem poziomo (180°)                      |
+| Akcja       | Mysza            | Gest dłoni                                              |
+|-------------|------------------|----------------------------------------------------------|
+| **ROTA**    | Lewy przycisk    | 👌 OK – kciuk + wskazujący, środkowy wyprostowany       |
+| **MOVE**    | Środkowy         | ✌️ V – wskazujący + środkowy                            |
+| **MOV-Z**   | Prawy            | 🖐 Cztery palce wyprostowane, kciuk schowany            |
+| **SLAB UP** | Scroll w górę    | L-gest – wskazujący w górę, kciuk w bok                 |
+| **SLAB DOWN**| Scroll w dół    | ✊ Zaciśnięta pięść z kciukiem w bok (180°)             |
 
 ---
 
-## 👨‍💻 Autor: eXegiMonumentum  
-PRz.index 167128
+## ❓ Dlaczego plugin uruchamia zewnętrzny skrypt?
 
-Eksperymentalne sterowanie molekułami w PyMOLu przy pomocy AI i gestów dłoni ✨
+PyMOL – zwłaszcza w wersji instalowanej z Anacondy – **może nie obsługiwać bibliotek takich jak `mediapipe` i `depthai`**.  
+Z tego powodu plugin uruchamia zewnętrzny proces Pythona przy użyciu `subprocess`.
 
+---
 
+## 👤 Autor
 
+**eXegiMonumentum**  
+Politechnika Rzeszowska (PRz), index 167128  
+Projekt: AI + Gesty dłoni + Kamera OAK-D + PyMOL
 
+---
