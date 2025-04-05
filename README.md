@@ -1,6 +1,15 @@
 # 🧬 OAK Gesture Plugin for PyMOL
 
-System pozwala na sterowanie molekułami w **PyMOL** przy użyciu gestów dłoni rozpoznawanych przez kamerę **OAK-D**.
+## 🧪 O projekcie
+
+**PyMOL** to zaawansowane narzędzie do wizualizacji struktur molekularnych, szeroko stosowane w biologii strukturalnej, bioinformatyce i projektowaniu leków. Umożliwia analizę cząsteczek, pomiary geometryczne i tworzenie publikacyjnych wizualizacji 3D.
+
+Niniejszy projekt rozszerza PyMOL o nową formę interakcji: **sterowanie gestami dłoni w czasie rzeczywistym** z użyciem kamery **OAK-D** i systemu AI.
+
+Efekty:
+- 🎯 Możliwość obsługi PyMOL bez użycia myszy lub klawiatury,  
+- ⚙️ Szybkie manipulacje molekułami w 3D,  
+- 🧠 Zastosowanie rozpoznawania gestów w środowisku wizualizacji naukowej.
 
 ---
 
@@ -102,10 +111,14 @@ Z tego powodu plugin uruchamia zewnętrzny proces Pythona przy użyciu `subproce
 
 ---
 
-## 👤 Autor
+## 🔬 Autor
 
+**🎓 Filip Tenerowicz**  
 **eXegiMonumentum**  
-Politechnika Rzeszowska (PRz), index 167128  
-Projekt: AI + Gesty dłoni + Kamera OAK-D + PyMOL
+
+Politechnika Rzeszowska · Index **167128**  
+🧠 Projekt:  
+Sterowanie PyMOL za pomocą gestów dłoni, kamery OAK-D i AI (MediaPipe + DepthAI)
 
 ---
+
