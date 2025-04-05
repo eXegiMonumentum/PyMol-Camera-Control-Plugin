@@ -1,5 +1,7 @@
 
-# OakGesturePlugin for PyMOL
+# OakGesturePlugin for PyMOL## 📦 Szybka instalacja
+
+[Kliknij tutaj, aby pobrać plugin ZIP do PyMOL](https://github.com/eXegiMonumentum/pymol-gesture-plugin/Plugin/OakGesturePlugin.zip)
 
 A PyMOL plugin that enables 3D molecular interaction using hand gestures captured by an OAK-D camera. This plugin provides a GUI interface and communicates with an external gesture recognition system based on Python, MediaPipe, and DepthAI.
 
