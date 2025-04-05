@@ -88,6 +88,22 @@ Dlatego musisz podać ręcznie:
 
 ---
 
+** W skrócie: ** 
+1. **Pobierz wymagane pliki:**
+   - `plugin.py` – główny skrypt pluginu,
+   - `utils.py` – plik z funkcjami pomocniczymi,
+   - `plugin.zip` – archiwum zawierające plugin.
+
+2. **Edytuj plik `.zip`:**
+   - Otwórz plik `plugin.zip`,
+   - Zmień **dwie ścieżki** na własne lokalne ścieżki (np. do folderu z danymi lub bibliotekami),
+   - Można to zrobić, wypakowując archiwum, edytując pliki, a następnie ponownie pakując całość do `.zip`.
+
+3. **Załaduj plugin w PyMOL-u:**
+   - Otwórz **Plugin Manager GUI** w PyMOL-u,
+   - Kliknij **Install** i wskaż zmodyfikowany plik `plugin.zip`,
+   - Po zainstalowaniu, plugin będzie dostępny z poziomu menu w PyMOL-u.
+
 ## ✋ Gesty
 
 | Akcja       | Mysza        | Gest                                                     |
@@ -104,3 +120,7 @@ Dlatego musisz podać ręcznie:
 PRz.index 167128
 
 Eksperymentalne sterowanie molekułami w PyMOLu przy pomocy AI i gestów dłoni ✨
+
+
+
+
