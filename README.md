@@ -19,7 +19,6 @@ pymol-gesture-plugin/
         ├── gesture_utils.py           ← Funkcje rozpoznające gesty
         ├── oak_plugin.py              ← Główny skrypt rozpoznający gesty
         ├── requirements.txt           ← Lista paczek   
-   
 ```
 
 ---
@@ -61,21 +60,26 @@ python_path = os.path.abspath("C:/SCIEZKA_DO/env/Scripts/python.exe")
 script_path = os.path.abspath("C:/SCIEZKA_DO/oak_plugin.py")
 ```
 
-🔁 Zamień je na **lokalne ścieżki** do:
+### 🔍 Dlaczego tak?
 
-- Twojego `env`
-- Twojego `oak_plugin.py`
+Ten plugin **uruchamia skrypt zewnętrznie** przez `subprocess`, a nie z poziomu PyMOLa czy Anacondy – ponieważ Anaconda może nie obsługiwać `mediapipe`.  
+Dlatego musisz podać ręcznie:
+
+- Ścieżkę do środowiska `venv`
+- Ścieżkę do `oak_plugin.py`
 
 ---
 
 ## ✅ Instalacja w PyMOL
 
-1. Pobierz ZIP -- > To w nimy zmienić ścieżki w __init__:  
+1. Pobierz ZIP, w którym zmienisz ścieżki:
    [OakGesturePlugin.zip](https://github.com/eXegiMonumentum/pymol-gesture-plugin/raw/main/Plugin/OakGesturePlugin.zip)
 
 2. W PyMOLu:
-   - `Plugin > Plugin Manager > Install`
-   - Wybierz ZIP, w którym zmieniłeś ścieżki na poprawne (ścieżki do swojego venv gdzie ma odpalić się skrypt oraz ścieżka do skryptu oak_plugin.py) 
+   - Otwórz `Plugin > Plugin Manager > Install`
+   - Wybierz ZIP, **w którym wcześniej zmieniłeś ścieżki**:
+     - do `python.exe` wewnątrz środowiska
+     - do `oak_plugin.py`
    - Kliknij **Install**
 
 3. Uruchom:
@@ -91,12 +95,12 @@ script_path = os.path.abspath("C:/SCIEZKA_DO/oak_plugin.py")
 | ROTA        | Lewy przycisk| 👌 OK – kciuk + wskazujący                               |
 | MOVE        | Środkowy     | ✌️ V – wskazujący + środkowy                            |
 | MOV-Z       | Prawy        | 🖐 4 palce wyprostowane, kciuk schowany                 |
-| SLAB UP     | Scroll ↑     |  L-kształtny (wskazujący w górę, kciuk w bok)         |
+| SLAB UP     | Scroll ↑     | L-kształtny (wskazujący w górę, kciuk w bok)            |
 | SLAB DOWN   | Scroll ↓     | ✊ Pięść z kciukiem poziomo (180°)                      |
 
 ---
 
-## 👨‍💻 Autor: eXegiMonumentum
-    PRz.index 167128
+## 👨‍💻 Autor: eXegiMonumentum  
+PRz.index 167128
 
 Eksperymentalne sterowanie molekułami w PyMOLu przy pomocy AI i gestów dłoni ✨
